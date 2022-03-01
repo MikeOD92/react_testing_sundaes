@@ -18,3 +18,19 @@ test("displays img for each scoop from server", async () => {
     "Mint chip scoop",
   ]);
 });
+
+////////////////////////
+
+test("display imgs of toppings", async () => {
+  render(<Options optionType={"toppings"} />);
+
+  const toppingsImg = await screen.findAllByRole("img", { name: /topping$/i });
+  expect(toppingsImg).toHaveLength(3);
+
+  const altTxt = toppingsImg.map((item) => item.alt);
+  expect(altTxt).toEqual([
+    "Cherries topping",
+    "M&M's topping",
+    "hot fudge topping",
+  ]);
+});
