@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, useMemo } from "react";
 import pricePerItem from "../constants/index";
+
 const OrderDetails = createContext();
 
 // custom hook to check if we are inside provider
@@ -7,7 +8,7 @@ export function useOrderDetails() {
   const context = useContext(OrderDetails);
 
   if (!context) {
-    throw new Error("useOrderDetails must be inise a OrderDetailsProvider");
+    throw new Error("useOrderDetails must be inside a OrderDetailsProvider");
   }
   return context;
 }
