@@ -21,9 +21,7 @@ test("displays img for each scoop from server", async () => {
 ////////////////////////
 
 test("display imgs of toppings", async () => {
-  render(<Options optionType={"toppings"} />, {
-    wrapper: OrderDetailsProvider,
-  });
+  render(<Options optionType={"toppings"} />);
 
   const toppingsImg = await screen.findAllByRole("img", { name: /topping$/i });
   expect(toppingsImg).toHaveLength(3);
