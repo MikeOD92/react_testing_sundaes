@@ -1,6 +1,13 @@
 import { createContext, useContext, useEffect, useState, useMemo } from "react";
-import pricePerItem from "../constants/index";
+import { pricePerItem } from "../constants/index";
 
+function formatCurrency(ammount) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(ammount);
+}
 const OrderDetails = createContext();
 
 // custom hook to check if we are inside provider
@@ -27,10 +34,12 @@ export function OrderDetailsProvider(props) {
     scoops: new Map(),
     toppings: new Map(),
   });
+  const zeroCurrency = formatCurrency(0);
+
   const [totals, setTotal] = useState({
-    scoops: 0,
-    toppings: 0,
-    grandTotal: 0,
+    scoops: zeroCurrency,
+    toppings: zeroCurrency,
+    grandTotal: zeroCurrency,
   });
 
   useEffect(() => {
@@ -38,9 +47,9 @@ export function OrderDetailsProvider(props) {
     const toppingSubtotal = calculateSubtotal("toppings", optionCounts);
     const grandTotal = scoopsSubtotal + toppingSubtotal;
     setTotal({
-      scoops: scoopsSubtotal,
-      toppings: toppingSubtotal,
-      grandTotal,
+      scoops: formatCurrency(scoopsSubtotal),
+      toppings: formatCurrency(toppingSubtotal),
+      grandTotal: formatCurrency(grandTotal),
     });
   }, [optionCounts]);
 

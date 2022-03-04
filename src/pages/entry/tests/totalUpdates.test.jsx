@@ -1,9 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { OrderDetailsProvider } from "../../../context/OrderDetails";
 import Options from "../Options";
 
-test("update scrool subtotal when scoop changes", async () => {
-  render(<Options optionType="scoops" />);
+test("update scoop subtotal when scoop changes", async () => {
+  render(<Options optionType="scoops" />, {
+    wrapper: OrderDetailsProvider,
+  });
 
   // make sure total starts at 0.00
   const scoopsSubtotal = screen.getByText("Scoops total: $", { exact: false });
@@ -20,7 +23,7 @@ test("update scrool subtotal when scoop changes", async () => {
 
   // update chocalate scoops to 2 check substoal
   const ChocoInput = await screen.findByRole("spinbutton", {
-    name: /Choclate/i,
+    name: "Chocolate",
   });
 
   userEvent.clear(ChocoInput);
