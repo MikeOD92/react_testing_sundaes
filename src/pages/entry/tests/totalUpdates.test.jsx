@@ -1,12 +1,14 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "../../../test-utils/testing-lib-test-utils";
 import userEvent from "@testing-library/user-event";
 import { OrderDetailsProvider } from "../../../context/OrderDetails";
 import Options from "../Options";
 
 test("update scoop subtotal when scoop changes", async () => {
-  render(<Options optionType="scoops" />, {
+  render(
+    <Options optionType="scoops" /> /*, {
     wrapper: OrderDetailsProvider,
-  });
+  } we can prodive a one off wrapper this way. */
+  );
 
   // make sure total starts at 0.00
   const scoopsSubtotal = screen.getByText("Scoops total: $", { exact: false });
